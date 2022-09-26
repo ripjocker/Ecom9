@@ -8,7 +8,32 @@ nodo* archivo2lista(nodo*lista, char archivo[]);
 void lista2archivo(char archivo[], nodo* lista);
 int lista2arreglo(nodo*lista, stPersona d[], int dim);
 nodo* arreglo2lista(nodo*lista, stPersona d[], int dim);
+void agregarAlFinalPD(nodo** lista, nodo* nuevo);
 
+nodo * iniciLista();
+nodo * crearNodo(stPersona dato);
+nodo * agregarAlPpio(nodo* lista, nodo* nuevo);
+void muestraLista(nodo* lista);
+void muestraNodo(nodo* n);
+nodo * agregarAlPrincipioPro(nodo* lista, nodo* nuevo);
+nodo* buscarUltimo(nodo* lista);
+nodo* agregarAlFinal(nodo* lista, nodo* nuevo);
+nodo* agregarEnOrdenPorEdad(nodo* lista, nodo* nuevo);
+int cuentaNodosPorEdad(nodo* lista, int edad);
+int cuentaNodosPorEdadRec(nodo* lista, int edad);
+int cuentaNodosRec(nodo* lista);
+int cuentaNodosRecTernario(nodo* lista);
+int sumaNodosPorEdad(nodo* lista, int edad);
+int sumaNodosPorEdadRec(nodo* lista, int edad);
+int sumaNodosPorEdadRecTern(nodo* lista, int edad);
+void muestraListaRec(nodo* lista);
+stPersona verPrimero(nodo* lista);
+stPersona verPrimero1(nodo* lista);
+nodo* borrarPrimero(nodo* lista);
+nodo* buscaNodoPorNombre(nodo* lista, char nombre[]);
+nodo* borrarNodoPorNombre(nodo* lista, char nombre[]);
+nodo* invertirLista(nodo* lista);
+void agregarAlFinalPD(nodo** lista, nodo* nuevo);
 
 int main()
 {
@@ -82,7 +107,7 @@ nodo* archivo2lista(nodo*lista, char archivo[]){
     stPersona p;
 
     if(archi){
-        while(fread(&p,sizeof(archi)),1,archi>0){
+        while(fread(&p,sizeof(archi),1,archi>0)){
           agregarAlPpio(lista, crearNodo(p));
 
         }
@@ -96,7 +121,7 @@ return lista;
 
 
 void lista2archivo(char archivo[], nodo* lista){
-    File* archi= fopen(archivo, "ab")
+    FILE* archi= fopen(archivo, "ab");
     stPersona p;
     nodo* seg=lista;
     if(archi){
@@ -113,7 +138,7 @@ void lista2archivo(char archivo[], nodo* lista){
 
 ///lista a arreglo y alreves
 int lista2arreglo(nodo*lista, stPersona d[], int dim){
-    int = 0;
+    int i = 0;
     while(lista && i<dim){
       stPersona dato= lista->dato;
         d[i]=dato;
@@ -126,6 +151,7 @@ int lista2arreglo(nodo*lista, stPersona d[], int dim){
 }
 
 nodo* arreglo2lista(nodo*lista, stPersona d[], int dim){
+    int i=0;
     if(lista==NULL){
         while(i<dim){
          agregarAlPpio(lista, crearNodo(d[i]));
@@ -247,7 +273,7 @@ void invertirListaPD(nodo** lista){
     }
     (*lista)=listaInvertida;
 }
-
+/*
 void agregarAlFinalPD(nodo** lista, nodo* nuevo){
     if(!(*lista)){
         (*lista) = nuevo;
@@ -256,7 +282,7 @@ void agregarAlFinalPD(nodo** lista, nodo* nuevo){
         ultimo->siguiente = nuevo;
     }
 }
-
+*/
 ///funciones recursivas
 
 nodo* borrarListaRecursiva(nodo* lista){
@@ -320,5 +346,53 @@ int cuentaNodosPorEdadRec(nodo* lista, int edad){
     }
 
     return cont;
+}
+
+//// pilas
+#define Pila nodo*
+
+void inicPila(Pila* pila);
+int pilavacia(Pila* pila);
+stPersona tope(Pila* pila);
+stPersona desapilar(Pila* pila);
+void apilar(Pila* pila, stPersona dato);
+void mostrar(Pila* pila);
+
+void inicPila(Pila* pila){
+    (*pila)=iniciLista();
+}
+
+int pilavacia(Pila* pila){
+    int rta=0;
+    if((*pila)==NULL){
+        rta=1;
+    }
+    return rta;
+}
+
+int pilavacia2(Pila* pila){
+    return ((*pila)==NULL);
+}
+
+int pilavaciaTernario(Pila* pila){
+    return (*pila)?1:0;
+}
+
+stPersona tope(Pila* pila){
+    return verPrimero(*pila);
+}
+
+stPersona desapilar(Pila* pila){
+    stPersona p = verPrimero(*pila);
+    (*pila)=borrarPrimero(*pila);
+    return p;
+}
+
+void apilar(Pila* pila, stPersona dato){
+    (*pila)=agregarAlPpio(*pila, crearNodo(dato));
+}
+
+void mostrar(Pila* pila){
+    muestraLista(*pila);
 }
 
