@@ -117,6 +117,15 @@ nodo* archivo2lista(nodo*lista, char archivo[]){
 return lista;
 
 }
+/*           if(p.edad>=edad){
+             lista=agregarEnOrdenPorEdad(lista, crearNodo(p));
+              }
+
+                if(strcmp(p.nombre,nombre)==0){
+                lista=agregarEnOrdenPorEdad(lista, crearNodo(p));
+                }
+              */
+
 
 
 
@@ -125,7 +134,7 @@ void lista2archivo(char archivo[], nodo* lista){
     stPersona p;
     nodo* seg=lista;
     if(archi){
-        while(lista->siguiente!=NULL){
+        while(lista){
             p = lista->dato;
             fwrite(&p, sizeof(stPersona),1, archi);
             lista=lista->siguiente;
@@ -149,6 +158,13 @@ int lista2arreglo(nodo*lista, stPersona d[], int dim){
 
     return i;
 }
+
+/*        if(dato.edad>=18 && dato.sexo=='f' && dato.nombre[strlen(dato.nombre)-1]=='s'){///strlen filtro comparando ultima letra
+            a[i]=dato;
+            i++;
+        }
+        lista=lista->siguiente;
+ */
 
 nodo* arreglo2lista(nodo*lista, stPersona d[], int dim){
     int i=0;
@@ -251,6 +267,17 @@ nodo* intercalarListas(nodo* listaA, nodo* listaB, nodo* listaFinal){
     return listaFinal;
 }
 
+int sumaNodosPorEdad(nodo* lista, int edad){
+    int suma = 0;
+    nodo* seg = lista;
+    while(seg){
+        if(seg->dato.edad>edad){
+            suma += seg->dato.edad;
+        }
+        seg=seg->siguiente;
+    }
+    return suma;
+}
 
 //funciones puntero doble
 void agregarAlFinalPD(nodo** lista, nodo* nuevo){
@@ -315,17 +342,7 @@ int sumaNodosPorEdadRec(nodo* lista, int edad){
     return suma;
 }
 
-int sumaNodosPorEdad(nodo* lista, int edad){
-    int suma = 0;
-    nodo* seg = lista;
-    while(seg){
-        if(seg->dato.edad>edad){
-            suma += seg->dato.edad;
-        }
-        seg=seg->siguiente;
-    }
-    return suma;
-}
+
 
 int cuentaNodosRec(nodo* lista){
     int cont=0;
@@ -347,6 +364,9 @@ int cuentaNodosPorEdadRec(nodo* lista, int edad){
 
     return cont;
 }
+/// if ( numero % 2 == 0 ) par////////////////////////////////////
+
+
 
 //// pilas
 #define Pila nodo*
@@ -395,4 +415,31 @@ void apilar(Pila* pila, stPersona dato){
 void mostrar(Pila* pila){
     muestraLista(*pila);
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+int separarNumerosdeLetras (char pat[]){
+    char num;
+    char text;
+
+    while(i<strlen(pat)-1){
+        if(isdigit(pat[i])){
+
+            num=num+pat[i];
+        }else{
+        text-text+pat[a];
+        }
+        i++;
+    }
+
+    return num;
+}
+/**
+            tenga datos       como me muevo                 datoActual
+pila        !pilavacia()        desapilar()                 tope()
+arreglo     i<v                 i++                           arreglo[i]
+archivo     fread()>0           fread()                        lo leido
+lista       lista!=NULL         lista=lista->siguiente          lista
+*/
 
