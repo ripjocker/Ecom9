@@ -280,6 +280,11 @@ int sumaNodosPorEdad(nodo* lista, int edad){
 }
 
 //funciones puntero doble
+void agregarAlPrincipioProPD(nodo** lista, nodo* nuevo){
+    nuevo->siguiente = (*lista);
+    (*lista)=nuevo;
+}
+
 void agregarAlFinalPD(nodo** lista, nodo* nuevo){
     if(!(*lista)){
         (*lista) = nuevo;
